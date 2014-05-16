@@ -4,7 +4,7 @@ A port of polymer.js' [core-elements](http://polymer.github.io/core-docs/) to Po
 The intent of the authors is to contribute the work to the Dart project itself (https://www.dartlang.org).
 
 ### Dart ports of Polymer elements from [PolymerLabs](http://www.polymer-project.org/docs/elements/polymer-elements.html) can be found at 
-* [polymer_ui_elements](https://github.com/ErikGrimes/polymer_elements)
+* [polymer_elements](https://github.com/ErikGrimes/polymer_elements)
 * [polymer_ui_elements](https://github.com/ErikGrimes/polymer_ui_elements)
 
 
