@@ -48,7 +48,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:core_elements/tools/dom.dart' as domtools;
 
-@CustomTag('core-tooltip')
+@CustomTag('d-core-tooltip')
 class CoreTooltip extends PolymerElement {
   CoreTooltip.created() : super.created();
 
@@ -91,10 +91,10 @@ class CoreTooltip extends PolymerElement {
 
   void attached() {
     try {
-    super.attached();
+      super.attached();
       setPosition();
     } catch(e) {
-      print('attached: $e');
+      print('Exception in attached: $e'); // workaround for bug https://code.google.com/p/dart/issues/detail?id=16372
     }
   }
 
