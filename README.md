@@ -31,7 +31,9 @@ For more details take a look at the demo pages.
 Your feedback is very much appreciated. We are excited to hear about your experience using polymer_elements.
 We need your feedback to continually improve the qualtiy.
 
-Just [Create a New Issue](https://github.com/bwu-dart/core_elements/issues/new)
+- Just [Create a New Issue](https://github.com/bwu-dart/core_elements/issues/new)
+
+- Please let us know which components we should prioritize. Just add a comment to #3
 
 
 ## General notes
