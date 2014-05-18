@@ -17,7 +17,7 @@ http://www.polymer-project.org/.
 <polymer-element name='d-core-tooltip' attributes='noarrow position label show' tabindex='0'>
   <template>
     <link rel='stylesheet' href='core_tooltip.css'>
-    <div id='tooltip' class='polymer-tooltip {{position}} {{ {noarrow: noarrow, show: show} }}'>
+    <div id='tooltip' class='core-tooltip {{position}} {{ {noarrow: noarrow, show: show} }}'>
       <content select='[tip]'>{{label}}</content>
     </div>
 
