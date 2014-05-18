@@ -1,0 +1,420 @@
+<!DOCTYPE html><!--
+Copyright (c) 2013, the polymer_elements.dart project authors.  Please see
+the AUTHORS file for details. All rights reserved. Use of this source code is
+governed by a BSD-style license that can be found in the LICENSE file.
+This work is a port of the polymer-elements from the Polymer project,
+http://www.polymer-project.org/.
+--><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Core Tooltip</title>
+
+    
+    
+    
+    
+  </head>
+
+  <body unresolved=""><style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+        padding: 1em;
+        background-color: #eee;
+      }
+
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+        padding: 1em;
+        background-color: #eee;
+      }
+
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .example {
+        margin: 35px 15px;
+      }
+
+      .example > * {
+        margin: 0 15px;
+      }
+
+      .fakebutton {
+        box-shadow: 0 0 3px #aaa inset;
+        border-radius: 3px;
+        padding: 7px 5px;
+      }
+      .fakebutton:hover {
+        background-color: white;
+      }
+
+      img {
+        width: 400px;
+        height: 150px;
+        object-fit: cover;
+      }
+
+      img.large {
+        border: 15px solid white;
+        box-sizing: border-box;
+      }
+
+      .profile {
+        width: 60px;
+        height: auto;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+
+      a {
+        color: currentcolor;
+        text-decoration: none;
+      }
+
+      .rich {
+        background: hotpink;
+        color: white;
+        padding:20px;
+        border-radius: 5px;
+      }
+
+      d-core-tooltip.fancy::shadow .core-tooltip {
+        opacity: 0;
+        -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+      }
+
+      d-core-tooltip.fancy:hover::shadow .core-tooltip,
+      d-core-tooltip.fancy:focus::shadow .core-tooltip {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+      .example {
+        margin: 35px 15px;
+      }
+
+      .example > * {
+        margin: 0 15px;
+      }
+
+      .fakebutton {
+        box-shadow: 0 0 3px #aaa inset;
+        border-radius: 3px;
+        padding: 7px 5px;
+      }
+      .fakebutton:hover {
+        background-color: white;
+      }
+
+      img {
+        width: 400px;
+        height: 150px;
+        object-fit: cover;
+      }
+
+      img.large {
+        border: 15px solid white;
+        box-sizing: border-box;
+      }
+
+      .profile {
+        width: 60px;
+        height: auto;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+
+      a {
+        color: currentcolor;
+        text-decoration: none;
+      }
+
+      .rich {
+        background: hotpink;
+        color: white;
+        padding:20px;
+        border-radius: 5px;
+      }
+
+      d-core-tooltip.fancy::shadow .core-tooltip {
+        opacity: 0;
+        -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+      }
+
+      d-core-tooltip.fancy:hover::shadow .core-tooltip,
+      d-core-tooltip.fancy:focus::shadow .core-tooltip {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    </style><style shim-shadowdom2="">
+      .on /deep/ .core-tooltip {
+        visibility: visible;
+      }
+    </style>
+
+<!--
+These two files are from the Polymer project:
+https://github.com/Polymer/platform/ and https://github.com/Polymer/polymer/.
+
+You can replace platform.js and polymer.html with different versions if desired.
+-->
+<!-- minified for deployment: -->
+
+
+
+<!-- unminfied for debugging:
+<script src="../../packages/web_components/platform.concat.js"></script>
+<script src="src/js/polymer/polymer.concat.js"></script>
+<link rel="import" href="src/js/polymer/polymer-body.html">
+-->
+
+<!-- Teach dart2js about Shadow DOM polyfill objects. -->
+
+
+<!-- Bootstrap the user application in a new isolate. -->
+
+<!-- TODO(sigmund): replace boot.js by boot.dart (dartbug.com/18007)
+<script type="application/dart">export "package:polymer/boot.dart";</script>
+ -->
+<script src="packages/polymer/src/js/use_native_dartium_shadowdom.js"></script><script src="packages/web_components/platform.js"></script>
+<!-- <link rel="import" href="../polymer-dev/polymer.html"> -->
+<script src="packages/polymer/src/js/polymer/polymer.js"></script><polymer-element name="polymer-body" extends="body">
+
+  <script>
+
+  // upgrade polymer-body last so that it can contain other imported elements
+  document.addEventListener('polymer-ready', function() {
+    
+    Polymer('polymer-body', Platform.mixin({
+
+      created: function() {
+        this.template = document.createElement('template');
+        var body = wrap(document).body;
+        var c$ = body.childNodes.array();
+        for (var i=0, c; (c=c$[i]); i++) {
+          if (c.localName !== 'script') {
+            this.template.content.appendChild(c);
+          }
+        }
+        // snarf up user defined model
+        window.model = this;
+      },
+
+      parseDeclaration: function(elementElement) {
+        this.lightFromTemplate(this.template);
+      }
+
+    }, window.model));
+
+  });
+
+  </script>
+
+</polymer-element><script src="packages/web_components/dart_support.js"></script><polymer-element name="d-core-tooltip" attributes="noarrow position label show" tabindex="0">
+  <template>
+    <style>/* Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt */
+
+:host {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+}
+
+:host(:hover) .core-tooltip {
+  visibility: visible !important;
+}
+
+:host(:focus) .core-tooltip {
+  visibility: visible !important;
+}
+
+.core-tooltip:not(.show) {
+  visibility: hidden;
+}
+
+.core-tooltip {
+  pointer-events: none;
+  position: absolute;
+  display: flex;
+  font-size: 10px;
+  font-family: sans-serif;
+  padding: 8px;
+  color: white;
+  background-color: rgba(0,0,0,0.8);
+  box-sizing: border-box;
+  border-radius: 3px; /* TODO: not in spec. */
+  white-space: nowrap;
+  line-height: 6px;
+  z-index: 1002; /* TODO: this is brittle. */
+}
+
+:host([large]) .core-tooltip {
+  line-height: 14px;
+  font-size: 14px;
+  padding: 16px;
+}
+
+.core-tooltip.noarrow::after {
+  display: none;
+}
+
+.core-tooltip::after {
+  position: absolute;
+  border: solid transparent;
+  content: '';
+  height: 0;
+  width: 0;
+  border-width: 4px;
+}
+
+.top {
+  margin-bottom: 10px; /* TODO: not specified in spec */
+  bottom: 100%;
+}
+
+.right {
+  margin-left: 10px; /* TODO: not specified in spec */
+  left: 100%;
+}
+
+.bottom {
+  top: 100%;
+  margin-top: 10px; /* TODO: not specified in spec */
+}
+
+.left {
+  margin-right: 10px; /* TODO: not specified in spec */
+  right: 100%;
+}
+
+.core-tooltip.bottom::after {
+  bottom: 100%;
+  left: calc(50% - 4px);
+  border-bottom-color: rgba(0,0,0,0.8);
+}
+
+.core-tooltip.left::after {
+  left: 100%;
+  top: calc(50% - 4px);
+  border-left-color: rgba(0,0,0,0.8);
+}
+
+.core-tooltip.top::after {
+  top: 100%;
+  left: calc(50% - 4px);
+  border-top-color: rgba(0,0,0,0.8);
+}
+
+.core-tooltip.right::after {
+  right: 100%;
+  top: calc(50% - 4px);
+  border-right-color: rgba(0,0,0,0.8);
+}
+</style>
+    <div id="tooltip" class="core-tooltip {{position}} {{ {noarrow: noarrow, show: show} }}">
+      <content select="[tip]">{{label}}</content>
+    </div>
+
+    <content></content>
+  </template>
+  
+</polymer-element>
+
+    <article onclick="this.classList.toggle('on');">
+
+      <em>click the page to toggle all examples...</em>
+
+      <section class="small">
+
+        <div class="example">
+
+          <d-core-tooltip label="position=&quot;left&quot;" position="left">
+            <div class="fakebutton">|||</div>
+          </d-core-tooltip>
+
+          <d-core-tooltip label="position=&quot;top&quot;" position="top">
+            <div class="fakebutton">|||</div>
+          </d-core-tooltip>
+
+          <d-core-tooltip label="position=&quot;bottom&quot;" position="bottom">
+            <div class="fakebutton">|||</div>
+          </d-core-tooltip>
+
+          <d-core-tooltip label="position=&quot;right&quot;" position="right">
+            <div class="fakebutton">|||</div>
+          </d-core-tooltip>
+
+        </div>
+
+        <div class="example">
+
+          <d-core-tooltip label="Fancy effect" class="fancy">
+            <img src="https://pbs.twimg.com/profile_images/378800000548263523/c110b0a4c3e3e4d3dcce1d2020f3eded.jpeg
+        " class="profile">
+          </d-core-tooltip>
+
+        </div>
+
+      </section>
+
+      <section>
+
+        <div class="example">
+
+          <d-core-tooltip>
+            <div class="rich">Rich tooltip with HTML</div>
+            <div tip="">
+              <img src="https://pbs.twimg.com/profile_images/378800000548263523/c110b0a4c3e3e4d3dcce1d2020f3eded.jpeg
+        " class="profile" style="width: 40px;margin-right: 8px;">Eric <b>Bidelman</b> - <a href="#">@ebidel</a></div>
+          </d-core-tooltip>
+
+        </div>
+
+        <div class="example">
+
+          <d-core-tooltip label="<d-core-tooltip large>" large="">
+            Larger tooltips for mobile
+          </d-core-tooltip>
+
+        </div>
+
+      </section>
+
+      <section>
+
+        <div class="example">
+
+          <d-core-tooltip label="Tooltip with no arrow and always on: <d-core-tooltip noarrow show>" position="bottom" noarrow="" show="">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/building.jpg" class="large">
+          </d-core-tooltip>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  
+
+<script src="core_tooltip.html_bootstrap.dart.js"></script></body></html>

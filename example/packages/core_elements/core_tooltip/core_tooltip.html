@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2013, the core_elements.dart project authors.  Please see
+the AUTHORS file for details. All rights reserved. Use of this source code is
+governed by a BSD-style license that can be found in the LICENSE file.
+This work is a port of the polymer-elements from the Polymer project,
+http://www.polymer-project.org/.
+-->
+
+
+<!-- TODO: would be nice to inherit from label to get .htmlFor, and .control,
+           but the latter is readonly. -->
+<!-- TODO: support off center arrows. -->
+<!-- TODO: detect mobile and apply the .large class, instead of manual
+           control. -->
+<!-- TODO: possibly reuse core-overlay. -->
+<polymer-element name='d-core-tooltip' attributes='noarrow position label show' tabindex='0'>
+  <template>
+    <link rel='stylesheet' href='core_tooltip.css'>
+    <div id='tooltip' class='core-tooltip {{position}} {{ {noarrow: noarrow, show: show} }}'>
+      <content select='[tip]'>{{label}}</content>
+    </div>
+
+    <content></content>
+  </template>
+  <script type='application/dart;component=1' src='core_tooltip.dart'></script>
+</polymer-element>
