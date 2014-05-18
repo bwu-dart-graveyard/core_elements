@@ -7,50 +7,43 @@
 
 library polymer_collapse.test;
 
-import "dart:html" show document, HtmlElement, Node, NodeTreeSanitizer;
-import "dart:async" show Future, Timer;
-import "package:polymer/polymer.dart" show initMethod;
-import "package:unittest/unittest.dart" show equals, expect, expectAsync,
-    isFalse, isNot, test;
-import "package:unittest/html_enhanced_config.dart" show
+import 'dart:html' as dom;
+import 'dart:async' as async;
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_enhanced_config.dart' show
     useHtmlEnhancedConfiguration;
-import "package:polymer_elements/polymer_collapse/polymer_collapse.dart" show
-    PolymerCollapse;
-
-/**
- * Sanitizer which does nothing.
- */
-class NullTreeSanitizer implements NodeTreeSanitizer {
-  void sanitizeTree(Node node) {}
-}
+import 'package:core_elements/core_collapse/core_collapse.dart' show
+    CoreCollapse;
 
 @initMethod
 void main() {
   useHtmlEnhancedConfiguration();
 
-  test("polymer-collapse", () {
-    Duration delay = new Duration(milliseconds: 300);
+  test("core-collapse", () {
+    Duration delay = new Duration(milliseconds: 200);
     var done = expectAsync(() {});
-    Timer.run(() {
-      var c = document.querySelector('#collapse') as PolymerCollapse;
-      expect(c.closed, isFalse);
-      new Future.delayed(delay, () {
-        var origH = getBoxComputedHeight();
-        expect(origH, isNot(equals(0)));
-        c.closed = true;
+    async.Timer.run(() {
+      var c = dom.document.querySelector('#collapse') as CoreCollapse;
+      // verify take attribute for opened is correct
+      expect(c.opened, isTrue);
+      new async.Future.delayed(delay, () {
+        // get the height for the opened state
+        var h = getCollapseComputedStyle().height;
+        // verify the height is not 0px
+        expect(h, isNot(equals('0px')));
+        // close it
+        c.opened = false;
         //c.deliverChanges();
-        new Future.delayed(delay, () {
-          // after closed, height is 0
-          expect(getBoxComputedHeight(), equals(0));
-          // should be set to display: none
-          expect(getBoxComputedStyle().display, equals('none'));
-          c.closed = false;
+        new async.Future.delayed(delay, () {
+          // verify is closed
+          expect(getCollapseComputedStyle().height, isNot(equals(h)));
+          // open it
+          c.opened = true;
           //c.deliverChanges();
-          new Future.delayed(delay, () {
-            // verify computed height
-            expect(getBoxComputedHeight(), equals(origH));
-            // after opened, height is set to 'auto'
-            expect(document.querySelector('#box').style.height, equals('auto'));
+          new async.Future.delayed(delay, () {
+            // verify is opened
+            expect(getCollapseComputedStyle().height, equals(h));
             done();
           });
         });
@@ -59,14 +52,7 @@ void main() {
   });
 }
 
-
-dynamic getBoxComputedStyle() {
-  HtmlElement b = document.querySelector('#box');
+dynamic getCollapseComputedStyle() {
+  dom.HtmlElement b = dom.document.querySelector('#collapse');
   return b.getComputedStyle();
-}
-
-int getBoxComputedHeight() {
-  String h = getBoxComputedStyle().height;
-  String digits = new RegExp(r"^(\d+).*$").firstMatch(h).group(1);
-  return int.parse(digits);
 }

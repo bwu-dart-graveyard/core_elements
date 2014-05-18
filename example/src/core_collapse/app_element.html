@@ -1,20 +1,23 @@
 <!DOCTYPE html>
+
 <!--
-Copyright (c) 2013, the polymer_elements.dart project authors.  Please see
-the AUTHORS file for details. All rights reserved. Use of this source code is
-governed by a BSD-style license that can be found in the LICENSE file.
-This work is a port of the polymer-elements from the Polymer project,
+Copyright (c) 2014 The Dart core_elements Authors. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/bwu-dart/core_elements/blob/master/LICENSE
+The complete set of authors may be found at https://github.com/bwu-dart/core_elements/blob/master/AUTHORS
+This work is a port of the core-elements from the Polymer project,
 http://www.polymer-project.org/.
+Code distributed by Dart core_elements Authors as part of the Dart core_elements project is also
+subject to an additional IP rights grant found at https://github.com/bwu-dart/core_elements/blob/master/PATENTS
 -->
 
-<link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse.html">
-<link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse_toggle.html">
+<link rel="import" href="packages/core_elements/core_collapse/core_collapse.html">
+<link rel="import" href="packages/core_elements/core_collapse/core_collapse_toggle.html">
 
 <polymer-element name="app-element">
   <template>
 
    <!-- TODO remove style tag when installControllerstyles works -->
-    <link rel="stylesheet" href="packages/polymer_elements/polymer_collapse/polymer_collapse.css">
+    <link rel="stylesheet" href="packages/core_elements/core_collapse/core_collapse.css">
 
     <style>
       .box {
@@ -31,47 +34,98 @@ http://www.polymer-project.org/.
     </style>
 
     <section style="background: blue; width: 800px;">
-      <polymer-collapse-toggle target="{{ $['collapse1'] }}">
-        <button>toggle collapse</button></polymer-collapse-toggle>
-      <div id="box1" class="box" style="height: 300px;">
+
+      <d-core-collapse-toggle target="{{ $['collapse1'] }}">
+        <button>toggle collapse</button></d-core-collapse-toggle>
+
+      <d-core-collapse id="collapse1" fixedSize class="box" style="height: 300px;">
         <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
-      </div>
-      <polymer-collapse id="collapse1" closed fixedSize target="{{ $['box1'] }}"></polymer-collapse>
+      </d-core-collapse>
+
     </section>
 
     <section style="background: green; width: 800px;">
-      <polymer-collapse-toggle target="{{ $['collapse2'] }}">
+
+      <d-core-collapse-toggle target="{{ $['collapse2'] }}">
+        <button>toggle collapse</button></d-core-collapse-toggle>
+
+      <d-core-collapse id="collapse2" class="box">
+
+        <div class="content">Coercuit iunctarum vix sic aberant spisso imagine litem cetera nubes ambitae tanta usu circumfuso fulminibus umentia rectumque iuga pluviaque meis semina regat ne campoque meis coeperunt nix cura iunctarum ligavit: secant ventos seductaque permisit sic iunctarum locoque his coeptis tum terras animalia recepta aethera cornua invasit tollere videre tonitrua humanas otia tuba alta dissociata sanctius adsiduis inclusum caesa ita onus sine pluviaque litem manebat fixo extendi ubi inposuit cum sublime membra undas orba forma deducite aethera turba coercuit retinebat obliquis bracchia nisi mentisque origine peregrinum manebat</div>
+
+        <section style="background: lightgreen;">
+
+          <d-core-collapse-toggle target="{{ $['collapse3'] }}">
+            <button>toggle collapse</button></d-core-collapse-toggle>
+
+          <d-core-collapse id="collapse3" class="box" opened>
+
+            <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
+
+            <section style="background: #00FF99;">
+
+              <d-core-collapse-toggle target="{{ $['collapse4'] }}">
+                <button>toggle collapse</button></d-core-collapse-toggle>
+
+              <d-core-collapse id="collapse4" class="box">
+
+                <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
+
+              </d-core-collapse>
+
+            </section>
+
+          </d-core-collapse>
+
+        </section>
+
+        <div class="content">Obstabatque cingebant nitidis rapidisque cepit moderantum discordia habentia frigore solidumque fert inter caecoque sine coeperunt corpore quarum fluminaque coercuit vultus animal austro quem os sectamque animus origo solidumque quoque melioris adspirate recepta utramque rapidisque caelumque orba unus pluviaque erant mutastis gravitate illic quisque alta calidis speciem mixtam ante contraria duae</div>
+
+      </d-core-collapse>
+
+    </section>
+<!--    <section style="background: blue; width: 800px;">
+      <d-core-collapse-toggle target="{{ $['collapse1'] }}">
+        <button>toggle collapse</button></d-core-collapse-toggle>
+      <div id="box1" class="box" style="height: 300px;">
+        <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
+      </div>
+      <d-core-collapse id=targetId"collapse1" closed fixedSize target="{{ $['box1'] }}"></d-core-collapse>
+    </section>
+
+    <section style="background: green; width: 800px;">
+      <d-core-collapse-toggle target="{{ $['collapse2'] }}">
         <button>toggle collapse</button>
-      </polymer-collapse-toggle>
+      </d-core-collapse-toggle>
       <div id="box2" class="box">
         <div class="content">Coercuit iunctarum vix sic aberant spisso imagine litem cetera nubes ambitae tanta usu circumfuso fulminibus umentia rectumque iuga pluviaque meis semina regat ne campoque meis coeperunt nix cura iunctarum ligavit: secant ventos seductaque permisit sic iunctarum locoque his coeptis tum terras animalia recepta aethera cornua invasit tollere videre tonitrua humanas otia tuba alta dissociata sanctius adsiduis inclusum caesa ita onus sine pluviaque litem manebat fixo extendi ubi inposuit cum sublime membra undas orba forma deducite aethera turba coercuit retinebat obliquis bracchia nisi mentisque origine peregrinum manebat</div>
 
         <section style="background: lightgreen;">
-          <polymer-collapse-toggle target="{{ $['collapse3'] }}">
+          <d-core-collapse-toggle target="{{ $['collapse3'] }}">
             <button>toggle collapse</button>
-          </polymer-collapse-toggle>
+          </d-core-collapse-toggle>
           <div id="box3" class="box">
             <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
 
             <section style="background: #00FF99;">
-              <polymer-collapse-toggle target="{{ $['collapse4'] }}">
+              <d-core-collapse-toggle target="{{ $['collapse4'] }}">
                 <button>toggle collapse</button>
-              </polymer-collapse-toggle>
+              </d-core-collapse-toggle>
               <div id="box4" class="box">
                 <div class="content">Forma temperiemque cornua sidera dissociata cornua recessit innabilis ligavit: solidumque coeptis nullus caelum sponte phoebe di regat mentisque tanta austro capacius amphitrite sui quin postquam semina fossae liquidum umor galeae coeptis caligine liberioris quin liquidum matutinis invasit posset: flexi glomeravit radiis certis invasit oppida postquam onerosior inclusum dominari opifex terris pace finxit quam aquae nunc sine altae auroram quam habentem homo totidemque scythiam in pondus ensis tegit caecoque poena lapidosos humanas coeperunt poena aetas totidem nec natura aethera locavit caelumque distinxit animalibus phoebe cingebant moderantum porrexerat terrae possedit sua sole diu summaque obliquis melioris orbem</div>
               </div>
-              <polymer-collapse id="collapse4" closed target="{{ $['box4'] }}"></polymer-collapse>
+              <d-core-collapse id="collapse4" closed target="{{ $['box4'] }}"></d-core-collapse>
             </section>
 
           </div>
-          <polymer-collapse id="collapse3" target="{{ $['box3'] }}"></polymer-collapse>
+          <d-core-collapse id="collapse3" target="{{ $['box3'] }}"></d-core-collapse>
         </section>
 
         <div class="content">Obstabatque cingebant nitidis rapidisque cepit moderantum discordia habentia frigore solidumque fert inter caecoque sine coeperunt corpore quarum fluminaque coercuit vultus animal austro quem os sectamque animus origo solidumque quoque melioris adspirate recepta utramque rapidisque caelumque orba unus pluviaque erant mutastis gravitate illic quisque alta calidis speciem mixtam ante contraria duae</div>
       </div>
-      <polymer-collapse id="collapse2" closed target="{{ $['box2'] }}"></polymer-collapse>
+      <d-core-collapse id="collapse2" closed target="{{ $['box2'] }}"></d-core-collapse>
     </section>
-
+-->
   </template>
   <script type="application/dart;component=1" src="app_element.dart"></script>
 </polymer-element>

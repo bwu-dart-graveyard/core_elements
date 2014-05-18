@@ -1,27 +1,30 @@
-// Copyright (c) 2013, the polymer_elements.dart project authors.  Please see 
-// the AUTHORS file for details. All rights reserved. Use of this source code is 
-// governed by a BSD-style license that can be found in the LICENSE file.
-// This work is a port of the polymer-elements from the Polymer project, 
-// http://www.polymer-project.org/. 
+// Copyright (c) 2014 The Dart core_elements Authors. All rights reserved.
+// This code may only be used under the BSD style license found at https://github.com/bwu-dart/core_elements/blob/master/LICENSE
+// The complete set of authors may be found at https://github.com/bwu-dart/core_elements/blob/master/AUTHORS
+// This work is a port of the polymer-elements from the Polymer project,
+// http://www.polymer-project.org/.
+// Code distributed by Dart core_elements Authors as part of the Dart core_elements project is also
+// subject to an additional IP rights grant found at https://github.com/bwu-dart/core_elements/blob/master/PATENTS
 
-library polymer_elements.polymer_collapse_toggle;
+
+library core_elements.core_collapse_toggle;
 
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
-import 'polymer_collapse.dart';
+import 'core_collapse.dart';
 
-@CustomTag('polymer-collapse-toggle')
-class PolymerCollapseToggle extends PolymerElement {
-  PolymerCollapseToggle.created() : super.created();
+@CustomTag('d-core-collapse-toggle')
+class CoreCollapseToggle extends PolymerElement {
+  CoreCollapseToggle.created() : super.created();
 
-  final _logger = new Logger('PolymerCollapseButton');
+  final _logger = new Logger('CoreCollapseButton');
 
   /**
    * The selector for the target polymer-collapse element.
    */
-  @published PolymerCollapse target;
-  
+  @published CoreCollapse target;
+
   void handleClick([e]) {
     if (target != null) {
       target.toggle();

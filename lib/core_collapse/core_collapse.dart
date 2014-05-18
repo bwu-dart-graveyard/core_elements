@@ -1,50 +1,45 @@
-// Copyright (c) 2013, the polymer_elements.dart project authors.  Please see
-// the AUTHORS file for details. All rights reserved. Use of this source code is
-// governed by a BSD-style license that can be found in the LICENSE file.
-// This work is a port of the polymer-elements from the Polymer project,
+// Copyright (c) 2014 The Dart core_elements Authors. All rights reserved.
+// This code may only be used under the BSD style license found at https://github.com/bwu-dart/core_elements/blob/master/LICENSE
+// The complete set of authors may be found at https://github.com/bwu-dart/core_elements/blob/master/AUTHORS
+// This work is a port of the core-elements from the Polymer project,
 // http://www.polymer-project.org/.
+// Code distributed by Dart core_elements Authors as part of the Dart core_elements project is also
+// subject to an additional IP rights grant found at https://github.com/bwu-dart/core_elements/blob/master/PATENTS
+
 
 /**
- * polymer-collapse is used to add collapsible behavior to the
- * target element.  It adjusts the height or width of the target element
- * to make the element collapse and expand.
- *
- * Example:
+ * [:core-collapse:] creates a collapsible block of content.  By default, the content
+ * will be collapsed.  Use [:opened:] to show/hide the content.
  *
  *     <button on-click="{{toggle}}">toggle collapse</button>
- *     <div id="demo">
+ *
+ *     <core-collapse id="collapse"></core-collapse>
  *       ...
- *     </div>
- *     <polymer-collapse id="collapse" targetId="demo"></polymer-collapse>
+ *     </core-collapse>
  *
  *     ...
  *
  *     toggle: function() {
- *       this.$.collapse.toggle();
+ *       $[collapse].toggle();// || !_inDocument) {
  *     }
  */
-library polymer_elements.polymer_collapse;
+library core_elements.core_collapse;
 
-import 'dart:async';
-import 'dart:html';
+import 'dart:async' as async;
+import 'dart:html' as dom;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
-@CustomTag('polymer-collapse')
-class PolymerCollapse extends PolymerElement {
-  PolymerCollapse.created() : super.created();
+@CustomTag('d-core-collapse')
+class CoreCollapse extends PolymerElement {
+  CoreCollapse.created() : super.created();
 
-  final _logger = new Logger('polymer-collapse');
-
-  /**
-   * The id of the target element.
-   */
-  @published String targetId = '';
+  final _logger = new Logger('core-collapse');
 
   /**
    * The target element.
    */
-  @published HtmlElement target;
+  @published dom.HtmlElement target;
 
   /**
    * If true, the orientation is horizontal; otherwise is vertical.
@@ -52,14 +47,14 @@ class PolymerCollapse extends PolymerElement {
   @published bool horizontal = false;
 
   /**
-   * If true, the target element is hidden/collapsed.
+   * Set opened to true to show the collapse element and to false to hide it.
    */
-  @published bool closed = false;
+  @published bool opened = false;
 
   /**
    * Collapsing/expanding animation duration in second.
    */
-  @published double duration = 0.33; //new Duration(milliseconds: 333);
+  @published double duration = 0.33;
 
   /**
    * If true, the size of the target element is fixed and is set
@@ -69,79 +64,79 @@ class PolymerCollapse extends PolymerElement {
    */
   @published bool fixedSize = false;
 
-  @published var size = null;
-  StreamSubscription _transitionEndListener;
+  var _size = null;
+  async.StreamSubscription _transitionEndListener;
   String _dimension = "";
   bool _hasClosedClass = false;
-  bool _inDocument = false;
   bool _afterInitialUpdate = false;
   bool _isTargetReady = false;
 
   @override
-  void enteredView() {
-    _logger.finest('enteredView');
-
-    super.enteredView();
-    //TODO (egrimes) Uncomment when installControllerStyles works.
-    installControllerStyles();
-    this._inDocument = true;
-    new Future(() => _afterInitialUpdate = true);
+  void ready() {
+    super.ready();
+    if (target == null) {
+      target = this;
+    }
   }
 
   @override
-  void leftView() {
-    _logger.finest('leftView');
+  void attached() {
+    _logger.finest('attached');
 
-    this.removeListeners(this.target);
+    super.attached();
+    new async.Future(() => _afterInitialUpdate = true);
+  }
+
+  @override
+  void detached() {
+    _logger.finest('detached');
+
+    if (target != null) {
+      removeListeners(target);
+    }
     super.leftView();
   }
 
-  void targetIdChanged(e) {
-    _logger.finest('targetIdChanged');
-
-    var p = this.parentNode;
-    while (p.parentNode != null) {
-      p = p.parentNode;
-    }
-
-    this.target = p.querySelector('#' + this.targetId);
-  }
-
-
-  void targetChanged(HtmlElement old) {
+  void targetChanged(dom.HtmlElement old) {
     _logger.finest('targetChanged $target');
 
-    if(old != null) {
-      this.removeListeners(old);
+    if (old != null) {
+      removeListeners(old);
     }
-    this.horizontalChanged();
 
-    this._isTargetReady = (this.target != null);
+    if (target == null) {
+      return;
+    }
 
-    if (this.target != null) {
-      this.target.style.overflow = 'hidden';
-      this.addListeners(this.target);
-      // set polymer-collapse-closed class initially to hide the target
-      this.toggleClosedClass(true);
+    _isTargetReady = (target != null);
+
+    if (target != this) {
+      installControllerStyles();
     }
-    // don't need to update if the size is already set and it's opened
-    if (!this.fixedSize || !this.closed || old == null) {
-      this.update();
-    }
+
+    classes.toggle('core-collapse-closed', target != this);
+    target.style.overflow = 'hidden';
+    horizontalChanged();
+    addListeners(target);
+    // set core-collapse-closed class initially to hide the target
+    toggleClosedClass(true);
+    update();
   }
 
-  void addListeners(HtmlElement node) {
+  void addListeners(dom.HtmlElement node) {
     _logger.finest('addListeners');
 
-    if(_transitionEndListener == null) {
-      _transitionEndListener = node.onTransitionEnd.listen((d) => this.transitionEnd(d));
+    if (_transitionEndListener != null) {
+      _transitionEndListener.cancel();
     }
+    _transitionEndListener = node.onTransitionEnd.listen((d) => transitionEnd(d)
+        );
   }
 
-  void removeListeners(HtmlElement node) {
+  void removeListeners(dom.HtmlElement node) {
     _logger.finest('removeListeners');
 
-    if(_transitionEndListener != null) {
+    if (_transitionEndListener != null) {
       _transitionEndListener.cancel();
     }
     _transitionEndListener = null;
@@ -150,103 +145,137 @@ class PolymerCollapse extends PolymerElement {
   void horizontalChanged() {
     _logger.finest('horizontalChanged');
 
-    if(this.horizontal) {
+    if (horizontal) {
       _dimension = 'width';
     } else {
       _dimension = 'height';
     }
   }
 
-  void closedChanged(e) {
-    _logger.finest('closedChanged');
+  void openedChanged(e) {
+    _logger.finest('openChanged');
 
-    this.update();
+    update();
   }
 
   /**
-   * Toggle the closed state of the collapsible.
-   *
-   * @method toggle
+   * Toggle the opened state.
    */
   void toggle() {
-    _logger.finest("toggle '${this.id}'");
+    _logger.finest("toggle '${id}'");
 
-    this.closed = !this.closed;
+    opened = !opened;
   }
 
   void setTransitionDuration(double duration) {
     _logger.finest('setTransitionDuration');
 
-    var s = this.target.style;
-    if(duration != null && duration != 0) {
-      _logger.finest("setTransitionDuration - ${this._dimension} ${duration}s");
-      s.transition = '${this._dimension} ${duration}s';
+    var s = target.style;
+    if (duration != null && duration != 0) {
+      _logger.finest("setTransitionDuration - ${_dimension} ${duration}s");
+      s.transition = '${_dimension} ${duration}s';
     } else {
       _logger.finest("setTransitionDuration - duration 0ms");
       s.transition = null;
-    }
-
-    if (duration == null || duration == 0) {
-      new Future(() => transitionEnd);
+      new async.Future(() => transitionEnd);
     }
   }
 
   void transitionEnd([e]) {
     _logger.finest('transitionEnd');
 
-    if (!this.closed && !this.fixedSize) {
-      this.updateSize('auto', null);
+    if (opened && !fixedSize) {
+      updateSize('auto', null);
     }
-    this.setTransitionDuration(null);
-    this.toggleClosedClass(this.closed);
+    setTransitionDuration(null);
+    toggleClosedClass(!opened);
   }
 
-  void toggleClosedClass(bool add) {
+  void toggleClosedClass(bool closed) {
     _logger.finest('toggleClosedClass');
 
-    this._hasClosedClass = add;
-    this.target.classes.toggle('polymer-collapse-closed', add);
+    _hasClosedClass = closed;
+    target.classes.toggle('core-collapse-closed', closed);
   }
 
-  void updateSize(size, double duration, {bool forceEnd: false}) {
+  void updateSize(dynamic size, double duration, {bool forceEnd: false}) {
     _logger.finest('updateSize');
 
-    if(duration != null && duration != 0) {
-      this.calcSize();
-    }
-    this.setTransitionDuration(duration);
-    var s = this.target.style;
+    setTransitionDuration(duration);
+    var s = target.style;
     bool noChange = s.getPropertyValue(_dimension) == size;
     s.setProperty(_dimension, size.toString());
     // transitonEnd will not be called if the size has not changed
-    if(forceEnd && noChange) {
-      this.transitionEnd();
+    if (forceEnd && noChange) {
+      transitionEnd();
     }
   }
 
   void update() {
     _logger.finest('update');
 
-    if(this.target == null || !this._inDocument) {
+    if (target == null) {
       return;
     }
-    if(!this._isTargetReady) {
-      this.targetChanged(null);
+    if (!_isTargetReady) {
+      targetChanged(null);
     }
-    this.horizontalChanged();
-    if(this.closed) {
-      hide();
-    } else {
+    horizontalChanged();
+    if (opened) {
       show();
+    } else {
+      hide();
     }
+  }
+
+  void show() {
+    _logger.finest('show');
+
+    toggleClosedClass(false);
+    // for initial update, skip the expanding animation to optimize
+    // performance e.g. skip calcSize
+    if (!_afterInitialUpdate) {
+      transitionEnd();
+      return;
+    }
+    var s;
+    if (!fixedSize) {
+      updateSize('auto', null);
+      s = calcSize();
+      updateSize(0, null);
+    }
+    new async.Future(() {
+      if (_size != null) {
+        s = _size;
+      }
+      updateSize(s, duration, forceEnd: true);
+    });
+  }
+
+  void hide() {
+    _logger.finest('hide');
+
+    // don't need to do anything if it's already hidden
+    if (_hasClosedClass && !fixedSize) {
+      return;
+    }
+    if (fixedSize) {
+      // save the size before hiding it
+      _size = getComputedSize();
+    } else {
+      updateSize(calcSize(), null);
+    }
+    new async.Future(() {
+      updateSize(0, duration);
+    });
   }
 
   dynamic calcSize() {
     _logger.finest('calcSize');
 
-    var cr = this.target.getBoundingClientRect();
-    if(_dimension == 'width') {
-      return  '${cr.width}px';
+    var cr = target.getBoundingClientRect();
+    if (_dimension == 'width') {
+      return '${cr.width}px';
     } else {
       return '${cr.height}px';
     }
@@ -255,53 +284,11 @@ class PolymerCollapse extends PolymerElement {
   String getComputedSize() {
     _logger.finest('getComputedSize');
 
-    var cs = this.target.getComputedStyle();
-    if(_dimension == 'width') {
+    var cs = target.getComputedStyle();
+    if (_dimension == 'width') {
       return cs.width;
     } else {
       return cs.height;
     }
-  }
-
-  void show() {
-    _logger.finest('show');
-
-    this.toggleClosedClass(false);
-    // for initial update, skip the expanding animation to optimize
-    // performance e.g. skip calcSize
-    if (!_afterInitialUpdate) {
-      this.transitionEnd();
-      return;
-    }
-    var s;
-    if (!this.fixedSize) {
-      this.updateSize('auto', null);
-      s = this.calcSize();
-      this.updateSize(0, null);
-    }
-    new Future(() {
-      if(this.size != null) {
-        s = this.size;
-      }
-      this.updateSize(s, this.duration, forceEnd: true);
-    });
-  }
-
-  void hide() {
-    _logger.finest('hide');
-
-    // don't need to do anything if it's already hidden
-    if (_hasClosedClass && !this.fixedSize) {
-      return;
-    }
-    if (this.fixedSize) {
-      // save the size before hiding it
-      this.size = this.getComputedSize();
-    } else {
-      this.updateSize(this.calcSize(), null);
-    }
-    new Future(() {
-      this.updateSize(0, this.duration);
-    });
   }
 }
