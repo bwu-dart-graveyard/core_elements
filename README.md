@@ -33,7 +33,7 @@ We need your feedback to continually improve the qualtiy.
 
 - Just [Create a New Issue](https://github.com/bwu-dart/core_elements/issues/new)
 
-- Please let us know which components we should prioritize. [Just add a comment to #3](issues/3)
+- Please let us know which components we should prioritize. [Just add a comment to #3](../issues/3)
 
 
 ## General notes
