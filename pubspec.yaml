@@ -6,7 +6,7 @@ description: >
   A Dart port of core-elements
   (http://polymer.github.io/core-docs/).
 homepage: https://github.com/bwu-dart/core_elements
-documentation: http://bwu-dart.github.io/core_elements/docs/index.html
+documentation: http://bwu-dart.github.io/core_elements/dartdoc/
 environment:
   sdk: ">=1.4.0-dev.0 <2.0.0"
 dependencies:

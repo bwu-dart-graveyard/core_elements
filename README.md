@@ -10,7 +10,7 @@ The intent of the authors is to contribute the work to the Dart project itself (
 
 ## Documentation
 * The Dart source files of an element often contain some documentation (Dartdoc) how to use the element. You can also find this documentation online at  
-* [DartDoc](http://bwu-dart.github.io/core_elements/docs/index.html)
+* [DartDoc](http://bwu-dart.github.io/core_elements/dartdoc)
 * Almost each element has an associated demo page which shows how to use the element. 
 Open the 'demo' links below to take a look.
 The source code of these demo pages can be found in the [example subdirectory of the package](https://github.com/bwu-dart/core_elements/tree/master/example). 
@@ -41,9 +41,6 @@ We need your feedback to continually improve the qualtiy.
 * Tested with Dart SDK version 1.4.0-dev.6.7
 
 ### Status
-<!-- (A few demo pages (* aren't rendered properly as GitHub Pages or because they use unfinished elements. We are working on it.) --> 
-
-<!-- * Status `(ported)` means it is ported but not yet usable -->
 
 Element name                    |   Status         | Comment      | Demo
 ------------------------------- | ---------------- | ------------ | ----
