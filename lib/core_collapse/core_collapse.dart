@@ -34,7 +34,7 @@ import 'package:logging/logging.dart';
 class CoreCollapse extends PolymerElement {
   CoreCollapse.created() : super.created();
 
-  final _logger = new Logger('core-collapse');
+  final _logger = new Logger('d-core-collapse');
 
   /**
    * The target element.

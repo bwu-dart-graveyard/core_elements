@@ -18,7 +18,7 @@ import 'core_collapse.dart';
 class CoreCollapseToggle extends PolymerElement {
   CoreCollapseToggle.created() : super.created();
 
-  final _logger = new Logger('CoreCollapseButton');
+  final _logger = new Logger('d-core-collapse-button');
 
   /**
    * The selector for the target polymer-collapse element.
