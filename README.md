@@ -48,8 +48,8 @@ Element name                    |   Status         | Comment      | Demo
 ------------------------------- | ---------------- | ------------ | ----
 core-ajax                       | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_ajax.html)
 core-collapse                   | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_collapse.html)
+core-layout-grid                | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_layout_grid.html)
 core-tooltip                    | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_tooltip.html)
-core-tooltip                    | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_layout_grid.html)
 
 
 ### License
