@@ -1,0 +1,136 @@
+<!DOCTYPE html><!--
+Copyright (c) 2013, the polymer_elements.dart project authors.  Please see
+the AUTHORS file for details. All rights reserved. Use of this source code is
+governed by a BSD-style license that can be found in the LICENSE file.
+This work is a port of the polymer-elements from the Polymer project,
+http://www.polymer-project.org/.
+--><html><head>
+    <title>core-layout-grid</title>
+
+    
+
+    
+
+    
+  </head>
+
+  <body unresolved="">
+
+<!--
+These two files are from the Polymer project:
+https://github.com/Polymer/platform/ and https://github.com/Polymer/polymer/.
+
+You can replace platform.js and polymer.html with different versions if desired.
+-->
+<!-- minified for deployment: -->
+
+
+
+<!-- unminfied for debugging:
+<script src="../../packages/web_components/platform.concat.js"></script>
+<script src="src/js/polymer/polymer.concat.js"></script>
+<link rel="import" href="src/js/polymer/polymer-body.html">
+-->
+
+<!-- Teach dart2js about Shadow DOM polyfill objects. -->
+
+
+<!-- Bootstrap the user application in a new isolate. -->
+
+<!-- TODO(sigmund): replace boot.js by boot.dart (dartbug.com/18007)
+<script type="application/dart">export "package:polymer/boot.dart";</script>
+ -->
+<script src="packages/polymer/src/js/use_native_dartium_shadowdom.js"></script><script src="packages/web_components/platform.js"></script>
+<!-- <link rel="import" href="../polymer-dev/polymer.html"> -->
+<script src="packages/polymer/src/js/polymer/polymer.js"></script><polymer-element name="polymer-body" extends="body">
+
+  <script>
+
+  // upgrade polymer-body last so that it can contain other imported elements
+  document.addEventListener('polymer-ready', function() {
+    
+    Polymer('polymer-body', Platform.mixin({
+
+      created: function() {
+        this.template = document.createElement('template');
+        var body = wrap(document).body;
+        var c$ = body.childNodes.array();
+        for (var i=0, c; (c=c$[i]); i++) {
+          if (c.localName !== 'script') {
+            this.template.content.appendChild(c);
+          }
+        }
+        // snarf up user defined model
+        window.model = this;
+      },
+
+      parseDeclaration: function(elementElement) {
+        this.lightFromTemplate(this.template);
+      }
+
+    }, window.model));
+
+  });
+
+  </script>
+
+</polymer-element><script src="packages/web_components/dart_support.js"></script>
+
+<polymer-element name="d-core-layout-grid" attributes="xnodes layout auto">
+  <template>
+    <content></content>
+  </template>
+  
+</polymer-element><polymer-element name="grid-test" on-click="{{rotate}}">
+  <template>
+    <style>
+      * {
+        -webkit-transition: top, right, bottom, left;
+        -webkit-transition-duration: 0.3s;
+      }
+
+      panel {
+        display: inline-block;
+        border: 4px dotted lightblue;
+        padding: 16px;
+        background-color: whitesmoke;
+      }
+
+      #outputToolbar {
+        width: 400px;
+      }
+
+      #output {
+        width: 400px;
+      }
+
+      #workspace {
+        border-color: orange;
+      }
+    </style>
+
+    <d-core-layout-grid xnodes="{{xnodes}}" layout="{{layout}}"></d-core-layout-grid>
+
+    <panel id="toolbar">toolbar (click to rotate)</panel>
+    <panel id="sidebar">sidebar</panel>
+    <panel id="workspace">workspace</panel>
+    <panel id="outputToolbar">otherbar</panel>
+    <panel id="output">
+      output
+      <h2>Documentation</h2>
+      <h1>Verbiage</h1>
+      <p>In backbone record integer LED amplified internet protocol a extension reflective.
+      Array kilohertz LED. Wavelength extension patch supporting wave an by prompt.</p>
+    </panel>
+  </template>
+  
+</polymer-element><style>
+      body {
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+    </style>
+    <grid-test></grid-test>
+  
+
+<script src="core_layout_grid.html_bootstrap.dart.js"></script></body></html>

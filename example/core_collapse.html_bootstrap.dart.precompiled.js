@@ -2174,7 +2174,7 @@ y=J.YE(z)
 if(a.Af==="width")return y.gR(z)
 else return y.gfg(z)},
 static:{UG:function(a){var z,y,x,w,v
-z=N.Jx("core-collapse")
+z=N.Jx("d-core-collapse")
 y=$.Nd()
 x=P.Py(null,null,null,P.qU,W.I0)
 w=P.qU
@@ -2234,7 +2234,7 @@ ym:[function(a,b){var z=a.XB
 if(z!=null)J.zO(z)
 else P.JS("t is null!!!")},function(a){return this.ym(a,null)},"du","$1","$0","gcl",0,2,50,15,1],
 static:{kz:function(a){var z,y,x,w,v
-z=N.Jx("CoreCollapseButton")
+z=N.Jx("d-core-collapse-button")
 y=$.Nd()
 x=P.Py(null,null,null,P.qU,W.I0)
 w=P.qU
