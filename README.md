@@ -46,9 +46,10 @@ We need your feedback to continually improve the qualtiy.
 
 Element name                    |   Status         | Comment      | Demo
 ------------------------------- | ---------------- | ------------ | ----
-polymer-ajax                    | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_ajax.html)
-polymer-collapse                | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_collapse.html)
-polymer-tooltip                 | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_tooltip.html)
+core-ajax                       | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_ajax.html)
+core-collapse                   | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_collapse.html)
+core-tooltip                    | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_tooltip.html)
+core-tooltip                    | ported           |              | [demo](http://bwu-dart.github.io/core_elements/example/core_layout_grid.html)
 
 
 ### License
