@@ -1,9 +1,9 @@
 name: core_elements
-version: 0.0.2-dev.0
+version: 0.0.3
 authors:
 - Günter Zöchbauer <guenter@gzoechbauer.com>
 description: >
-  A Dart port of core-elements
+  Deprecated. A Dart port of core-elements
   (http://polymer.github.io/core-docs/).
 homepage: https://github.com/bwu-dart/core_elements
 documentation: http://bwu-dart.github.io/core_elements/dartdoc/
